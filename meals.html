@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meal Planning - MessMate</title>
+  <link rel="stylesheet" href="common.css">
+  <link rel="stylesheet" href="meals.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+  <div class="meal-container">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+      <h1 style="margin: 0;">Meal Planner</h1>
+      <a href="dashboard.html" class="calculate-btn" style="text-decoration: none; padding: 10px 20px;">← Back</a>
+    </div>
+    
+    <div class="budget-input-section">
+      <h2>Calculate Your Meal Budget</h2>
+      <div class="budget-form">
+        <div class="form-group">
+          <label for="monthly-budget">Monthly Budget (৳):</label>
+          <input type="number" id="monthly-budget" placeholder="Enter your monthly budget" value="5000">
+        </div>
+        <div class="form-group">
+          <label for="days-count">Number of Days:</label>
+          <input type="number" id="days-count" placeholder="Enter number of days" value="30">
+        </div>
+        <div class="form-group">
+          <label for="meals-per-day">Meals Per Day:</label>
+          <input type="number" id="meals-per-day" placeholder="Enter meals per day" value="3">
+        </div>
+        <button id="calculate-budget" class="calculate-btn">Calculate Meal Budget</button>
+        <p class="budget-note">Note: Daily budget is calculated as (Total Budget - Already Spent Amount) / Remaining Days</p>
+      </div>
+      <div id="budget-result" class="budget-result" style="display: none;">
+        <h3>Your Meal Budget</h3>
+        <p>Monthly Budget: <span id="display-monthly">৳3,000</span></p>
+        <p>Daily Budget: <span id="display-daily">৳100</span></p>
+        <p>Per Meal Budget: <span id="display-per-meal">৳33.33</span></p>
+        <div class="budget-recommendation">
+          <p>Based on your budget of <span id="display-budget-range">৳30-40</span> per meal, we recommend:</p>
+          <p><strong id="recommended-plan">Basic Survival Plan</strong></p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="meal-suggestion-card">
+      <h2>Budget-Friendly Bangladeshi Meal Plans</h2>
+      
+      <div class="meal-plan" id="plan-low" style="display: none; background-color: #ffebee; border-left: 4px solid #f44336;">
+        <h3>⚠️ Budget Too Low (Below 41 Tk per meal)</h3>
+        <p style="color: #c62828; font-weight: 600;">Your current budget is insufficient for healthy meals.</p>
+        <p><strong>Recommendation:</strong> You should consider increasing your budget to at least 41-50 Tk per meal for basic nutritious food.</p>
+        <p><strong>Suggestions to increase budget:</strong></p>
+        <ul>
+          <li>Cook in bulk with mess members to reduce per-meal cost</li>
+          <li>Buy groceries in wholesale from local markets</li>
+          <li>Plan weekly meals to avoid food waste</li>
+          <li>Consider adding 1000-1500 Tk more to monthly budget</li>
+        </ul>
+      </div>
+      
+      <div class="meal-plan" id="plan-0">
+        <h3>🔹 Budget: 41–50 Tk (Basic Survival Plan)</h3>
+        <p> Cheap, filling, but still nutritious.</p>
+        <ul>
+          <li><strong>Breakfast:</strong> 2 parathas/3 rotis + fried egg or potato curry + tea</li>
+          <li><strong>Lunch:</strong> Rice + dal + vegetable curry + fried egg / small fish (pangasius/tilapia)</li>
+          <li><strong>Dinner:</strong> Khichuri + fried egg / vegetable bhuna</li>
+        </ul>
+      </div>
+      
+      <div class="meal-plan" id="plan-1">
+        <h3>🔹 Budget: 51–60 Tk (Balanced Low-Cost Plan)</h3>
+        <p> Slightly more protein, better variety.</p>
+        <ul>
+          <li><strong>Breakfast:</strong> 2 parathas + egg curry + tea</li>
+          <li><strong>Lunch:</strong> Rice + dal + leafy vegetables + small fish fry / egg curry</li>
+          <li><strong>Dinner:</strong> Rice + chicken curry (1 small piece) + vegetable</li>
+        </ul>
+      </div>
+      
+      <div class="meal-plan" id="plan-2">
+        <h3>🔹 Budget: 61–70 Tk (Standard Student Plan)</h3>
+        <p> Good mix of chicken, fish, egg, vegetables.</p>
+        <ul>
+          <li><strong>Breakfast:</strong> 3 chapatis + fried egg + vegetable curry + tea</li>
+          <li><strong>Lunch:</strong> Rice + dal + small fish curry + vegetable fry</li>
+          <li><strong>Dinner:</strong> Rice + chicken curry (1 medium piece) + leafy vegetables</li>
+        </ul>
+      </div>
+      
+      <div class="meal-plan" id="plan-3">
+        <h3>🔹 Budget: 71–80 Tk (Better Nutrition Plan)</h3>
+        <p>  Can add beef/mutton sometimes, more variety.</p>
+        <ul>
+          <li><strong>Breakfast:</strong> Paratha + egg curry + milk tea + small fruit (banana/guava)</li>
+          <li><strong>Lunch:</strong> Rice + dal + vegetable fry + chicken curry (1–2 pieces) / fish curry</li>
+          <li><strong>Dinner:</strong> Khichuri with chicken + salad (cucumber, onion, tomato)</li>
+        </ul>
+      </div>
+      
+      <div class="meal-plan" id="plan-4">
+        <h3>🔹 Budget: 81–90 Tk (Comfort Student Plan)</h3>
+        <p> Nutritious, tasty, close to "home-style" meals.</p>
+        <ul>
+          <li><strong>Breakfast:</strong> 2 parathas + egg curry + vegetables + milk/tea</li>
+          <li><strong>Lunch:</strong> Rice + dal + vegetable curry + beef/mutton/chicken (medium piece) + salad</li>
+          <li><strong>Dinner:</strong> Rice/khichuri + fish curry or chicken roast + salad + small fruit</li>
+        </ul>
+      </div>
+      
+      <div class="meal-plan" id="plan-5">
+        <h3>🔹 Budget: 91–100 Tk (Premium Student Plan)</h3>
+        <p>🍽️ Quality meals with good protein and variety.</p>
+        <ul>
+          <li><strong>Breakfast:</strong> Luchi + aloo dum + egg bhurji + milk tea + banana</li>
+          <li><strong>Lunch:</strong> Rice + dal + rui/katla fish curry + mixed vegetable + salad + doi</li>
+          <li><strong>Dinner:</strong> Rice + beef bhuna/chicken rezala + begun bhaja + salad</li>
+        </ul>
+      </div>
+      
+      <div class="meal-plan" id="plan-6">
+        <h3>🔹 Budget: 101–120 Tk (Deluxe Plan)</h3>
+        <p>🌟 Restaurant-quality home meals with premium ingredients.</p>
+        <ul>
+          <li><strong>Breakfast:</strong> Paratha + chicken curry + vegetable + boiled egg + milk + fruit</li>
+          <li><strong>Lunch:</strong> Rice + dal + ilish/pomfret fish + prawn malai curry + vegetable + salad + mishti doi</li>
+          <li><strong>Dinner:</strong> Rice + mutton curry + chicken roast + mixed vegetables + salad + firni</li>
+        </ul>
+      </div>
+      
+      <div class="meal-plan" id="plan-7">
+        <h3>🔹 Budget: 121–150 Tk (Premium Home-Style Plan)</h3>
+        <p>👑 High-quality meals like home with special dishes.</p>
+        <ul>
+          <li><strong>Breakfast:</strong> Luchi/paratha + mangsho (mutton) + aloo dum + omelet + milk + seasonal fruit</li>
+          <li><strong>Lunch:</strong> Polao/biryani + beef/mutton rezala + chingri malai curry + borhani + salad + doi</li>
+          <li><strong>Dinner:</strong> Rice + ilish bhapa/pabda jhol + chicken korma + shak bhaji + salad + payesh</li>
+        </ul>
+      </div>
+      
+      <div class="meal-plan" id="plan-8">
+        <h3>🔹 Budget: 151+ Tk (Luxury Feast Plan)</h3>
+        <p>💎 Premium restaurant-quality meals with special items.</p>
+        <ul>
+          <li><strong>Breakfast:</strong> Kachuri + chholar dal + jilipi + omelet + lassi + mixed fruits</li>
+          <li><strong>Lunch:</strong> Kacchi biryani/tehari + beef rezala + chingri malai curry + borhani + salad + rosogolla</li>
+          <li><strong>Dinner:</strong> Polao + ilish paturi + mutton kasha + prawn fry + mixed vegetables + salad + kulfi/ice cream</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <script type="module" src="meals-firebase.js"></script>
+</body>
+</html>

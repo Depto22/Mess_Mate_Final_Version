@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delete Review - MESS-MATE</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; }
+    button { background: #f44336; color: white; padding: 12px 24px; border: none; border-radius: 5px; cursor: pointer; }
+    #result { margin-top: 20px; padding: 15px; border-radius: 5px; }
+    .success { background: #d4edda; color: #155724; }
+    .info { background: #d1ecf1; color: #0c5460; }
+  </style>
+</head>
+<body>
+  <h1>Delete "very good service" Review</h1>
+  <p>This will delete the review containing "very good service" text from the global reviews collection.</p>
+  <button id="delete-btn">Delete Review</button>
+  <div id="result"></div>
+
+  <script type="module">
+    import { db } from './firebase-config.js';
+    import { collection, getDocs, deleteDoc, doc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+    document.getElementById('delete-btn').addEventListener('click', async () => {
+      const resultDiv = document.getElementById('result');
+      resultDiv.className = 'info';
+      resultDiv.innerHTML = 'Searching for review...';
+      
+      try {
+        const reviews = await getDocs(collection(db, 'reviews'));
+        let deleted = false;
+        let foundReviews = [];
+        
+        reviews.forEach(reviewDoc => {
+          const data = reviewDoc.data();
+          if (data.text && data.text.toLowerCase().includes('very good service')) {
+            foundReviews.push({
+              id: reviewDoc.id,
+              data: data
+            });
+          }
+        });
+        
+        if (foundReviews.length === 0) {
+          resultDiv.innerHTML = '❌ No review found with "very good service" text';
+          return;
+        }
+        
+        // Delete all matching reviews
+        for (const review of foundReviews) {
+          await deleteDoc(doc(db, 'reviews', review.id));
+          deleted = true;
+        }
+        
+        if (deleted) {
+          resultDiv.className = 'success';
+          resultDiv.innerHTML = `✅ Successfully deleted ${foundReviews.length} review(s)!<br><br>` +
+            foundReviews.map(r => `<div style="margin: 10px 0; padding: 10px; background: #fff; color: #333; border-radius: 4px;">
+              <strong>Text:</strong> "${r.data.text}"<br>
+              <strong>Name:</strong> ${r.data.name || 'N/A'}<br>
+              <strong>University:</strong> ${r.data.university || 'N/A'}
+            </div>`).join('');
+        }
+      } catch (error) {
+        resultDiv.className = '';
+        resultDiv.innerHTML = `❌ Error: ${error.message}`;
+        console.error('Delete error:', error);
+      }
+    });
+  </script>
+</body>
+</html>

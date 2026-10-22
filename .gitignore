@@ -1,0 +1,5 @@
+firebase-debug.log
+generate_hashes.py
+generate_keys.py
+.firebase/
+.env
